@@ -11,6 +11,21 @@ const Login = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
+      /*
+      const response = await fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    Name,
+    Email,
+    Password
+  })
+
+  const data = await response.json();
+});
+      */
       const response = await axios.post("http://localhost:5000/api/login", {
         Name: Name,
         Email: Email,
