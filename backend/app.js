@@ -4,9 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const pool = require("./db");
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var connection = require('./connection');
 var app = express();
 
 // view engine setup
@@ -21,6 +22,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.get("/test-db", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()");
+
+    res.json({
+      message: "Database connected successfully",
+      time: result.rows[0]
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Database connection failed",
+      error: error.message
+    });
+  }
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
