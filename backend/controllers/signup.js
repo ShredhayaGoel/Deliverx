@@ -29,7 +29,7 @@ const signup = async (req, res) => {
             });
         }
 
-        const hashpassword = bcrypt.hash(password, 10);
+        const hashpassword = await bcrypt.hash(password, 10);
 
 
         const result = await pool.query(`
