@@ -11,28 +11,17 @@ const Login = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      /*
-      const response = await fetch("http://localhost:5000/api/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    Name,
-    Email,
-    Password
-  })
-
-  const data = await response.json();
-});
-      */
-      const response = await axios.post("http://localhost:5000/api/login", {
-        Name: Name,
-        Email: Email,
-        Password: Password,
+      const response = await axios.post("http://localhost:3000/users/login", {
+        email: Email,
+        password: Password,
       });
 
       console.log(response.data);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      setError("");
     } catch (error) {
       console.log(error);
       setError("invalid credentuals");
