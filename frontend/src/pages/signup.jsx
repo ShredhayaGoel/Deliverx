@@ -17,11 +17,18 @@ const Signup = () => {
         email: email,
         password: password,
         phone: phone,
-        confirmPassword: confirmpassword,
+        confirmpassword: confirmpassword,
         address: address,
       });
 
       console.log(response.data);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      setPhone("");
+      setConfirmPassword("");
+      setAddress("");
     } catch (error) {
       console.log(error);
       setError("invalid credentuals");
@@ -116,7 +123,10 @@ const Signup = () => {
           />
         </div>
 
-        <button type="submit" className="w-full border p-2 rounded">
+        <button
+          type="submit"
+          className="w-full border p-2 rounded bg-orange-500"
+        >
           Sign Up
         </button>
       </form>
