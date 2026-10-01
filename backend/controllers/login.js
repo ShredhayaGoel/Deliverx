@@ -30,12 +30,12 @@ const login = async (req, res) => {
 
 
         if (!passmatch) {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'passwword do not match'
             });
         }
 
-        res.json({
+        return res.json({
             message: 'user found  succeessfully'
         });
 
@@ -43,7 +43,7 @@ const login = async (req, res) => {
     catch (error) {
 
         console.log("error during login", error);
-        res.status(400).json({
+        return res.status(400).json({
             message: 'internal server error'
         });
 
