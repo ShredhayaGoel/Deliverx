@@ -24,7 +24,7 @@ const signup = async (req, res) => {
             [email]);
 
         if (existinguser.rows.length > 0) {
-            res.status(400).json({
+            return res.status(400).json({
                 message: "email already registered"
             });
         }
@@ -38,7 +38,7 @@ const signup = async (req, res) => {
                     values($1,$2,$3,$4,$5) 
                      RETURNING id, name, email, phone, address, created_at
                `, [name, email, hashpassword, phone, address]);
-        res.status(201).json({
+        return res.status(201).json({
             message: "user created successfully",
             user: result.rows[0]
         });
@@ -48,7 +48,7 @@ const signup = async (req, res) => {
 
     catch (error) {
         console.error("Error during signup:", error);
-        res.status(500).json({ error: "Internal server error" });
+        return res.status(500).json({ error: "Internal server error" });
     }
 }
 module.exports = signup;
