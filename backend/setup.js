@@ -23,6 +23,16 @@ async function setup() {
         `);
 
         console.log("Table created successfully");
+
+        await pool.query(`CREATE TABLE IF NOT EXISTS  login_attempts(
+            id SERIAL PRIMARY KEY,
+            email VARCHAR(255) NOT NULL,
+            IP_address VARCHAR(45) NOT NULL,
+            attempt_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+        )`);
+
+        console.log("login_attempts table created successfully");
     }
 
     catch (error) {
