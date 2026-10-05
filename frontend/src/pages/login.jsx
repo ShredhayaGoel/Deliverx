@@ -6,7 +6,7 @@ const Login = () => {
 
   const [Password, setPassword] = useState("");
 
-  const [Error, setError] = useState("");
+  const [Error, setError] = useState("err1233");
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ const Login = () => {
 
       if (error.response) {
         setError(error.response.data.message);
-        console.log(Error);
+        console.log(error.response.data.message);
       } else {
         setError("An error occurred. Please try again later.");
         alert(Error);
