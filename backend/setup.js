@@ -33,7 +33,17 @@ async function setup() {
         )`);
 
         console.log("login_attempts table created successfully");
+
+        await pool.query(`CREATE TABLE IF NOT EXISTS  otp_verification(
+            id SERIAL PRIMARY KEY,
+            email VARCHAR(255) NOT NULL,
+            otp_code VARCHAR(6) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            expires_at TIMESTAMP NOT NULL)`);
+
     }
+
+
 
     catch (error) {
         console.error("Error creating table:", error);
