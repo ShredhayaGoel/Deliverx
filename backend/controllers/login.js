@@ -30,6 +30,10 @@ const login = async (req, res) => {
 
 
         if (!passmatch) {
+            const result = await pool.query(`
+                insert into login_attempts(email,IP_address, attempt_time) values($1,$2,now())
+                `, [email, req.ip]);
+
             return res.status(401).json({
                 message: 'passwword do not match'
             });
