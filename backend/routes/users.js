@@ -17,4 +17,6 @@ router.post('/login', login);
 
 router.post('/forgotpassword', forgotpassword);
 
+router.post('/verifyotp', require("../controllers/otpverification"));
+
 module.exports = router;
