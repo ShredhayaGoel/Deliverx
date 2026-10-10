@@ -1,4 +1,6 @@
 require("dotenv").config();
+require("./cleanupotp");
+
 var createError = require('http-errors');
 var express = require('express');
 const cors = require("cors");
