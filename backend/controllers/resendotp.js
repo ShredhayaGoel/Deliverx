@@ -37,7 +37,7 @@ const resendotp = async (req, res) => {
         await transporter.sendMail({
             from: process.env.SENDGRID_FROM_EMAIL,
             to: email,
-            subject: "Your new OTP",
+            subject: "Your OTP Code",
             text: `Your new OTP is ${otp}. It expires in 5 minutes.`
         });
 
