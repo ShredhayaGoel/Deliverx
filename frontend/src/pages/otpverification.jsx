@@ -39,6 +39,23 @@ const OtpVerification = () => {
     }
   };
 
+  const handleResendOTP = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users/resendotp",
+        {
+          email: email,
+        },
+      );
+
+      console.log(response.data);
+      alert("OTP resent successfully!");
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+      alert(error.response?.data?.message || "Failed to resend OTP");
+    }
+  };
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#080b18] px-4 py-10 text-white">
       {/* Background glow effects */}
@@ -139,6 +156,7 @@ const OtpVerification = () => {
 
         <button
           type="button"
+          onClick={handleResendOTP}
           className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5 font-medium text-slate-300 transition-all duration-300 hover:border-violet-400/30 hover:bg-violet-400/10 hover:text-white active:scale-[0.98]"
         >
           <RefreshCw size={16} />
