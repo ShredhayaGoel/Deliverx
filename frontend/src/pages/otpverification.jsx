@@ -14,6 +14,7 @@ const OtpVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const email = location.state?.email;
+  const purpose = location.state?.purpose;
 
   const [otp, setOtp] = useState("");
 
@@ -30,7 +31,13 @@ const OtpVerification = () => {
       );
 
       if (response.status === 200) {
-        navigate("/");
+        if (purpose === "login") {
+          navigate("/dashboard");
+        } else if (purpose === "forgotpassword") {
+          navigate("/resetpassword", {
+            state: { email: email },
+          });
+        }
       }
 
       console.log(response.data);
