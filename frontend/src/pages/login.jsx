@@ -28,6 +28,7 @@ const Login = () => {
       });
 
       console.log(response.data);
+      navigate("/dashboard");
 
       setName("");
       setEmail("");
@@ -47,6 +48,24 @@ const Login = () => {
       }
     }
   };
+
+  const handleResendOTP = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users/resendotp",
+        { email: Email },
+      );
+
+      console.log(response.data);
+      alert("OTP resent successfully. Please check your email.");
+      navigate("/send-otp", {
+        state: { email: Email },
+      });
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+    }
+  };
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#080b16] px-4 py-10 text-white selection:bg-violet-500/40">
       {/* Animated background */}
@@ -147,7 +166,7 @@ const Login = () => {
 
             <button
               type="button"
-              onClick={() => navigate("/send-otp")}
+              onClick={handleResendOTP}
               className="group flex items-center gap-1.5 text-sm font-semibold text-violet-300 transition-colors duration-300 hover:text-cyan-300"
             >
               <Mail
