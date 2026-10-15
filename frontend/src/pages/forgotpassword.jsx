@@ -30,7 +30,12 @@ const ForgotPassword = () => {
       alert("OTP sent successfully. Please check your email.");
 
       if (response.status === 200) {
-        navigate("/otpverification", { state: { email: email } });
+        navigate("/verify-otp", {
+          state: {
+            email: email,
+            purpose: "forgotpassword",
+          },
+        });
       }
     } catch (error) {
       console.error("Forgot password error:", error);
