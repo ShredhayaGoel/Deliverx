@@ -96,13 +96,15 @@ const ForgotPassword = () => {
           />
 
           <input
-            id="email"
             type="email"
-            placeholder="you@example.com"
-            className="w-full bg-transparent py-4 text-sm text-white outline-none placeholder:text-slate-600"
+            name="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            placeholder="Enter your email address"
+            className="w-full bg-transparent text-white placeholder-gray-500
+    outline-none border-none focus:ring-0
+    autofill:bg-transparent"
           />
         </div>
 
