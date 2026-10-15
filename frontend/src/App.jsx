@@ -11,7 +11,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/otpverification" element={<OtpVerification />} />
+        <Route path="/verify-otp" element={<OtpVerification />} />
       </Routes>
     </BrowserRouter>
   );
