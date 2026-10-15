@@ -58,8 +58,11 @@ const Login = () => {
 
       console.log(response.data);
       alert("OTP resent successfully. Please check your email.");
-      navigate("/send-otp", {
-        state: { email: Email },
+      navigate("/verify-otp", {
+        state: {
+          email: Email,
+          purpose: "login",
+        },
       });
     } catch (error) {
       console.log(error.response?.data || error.message);
