@@ -1,1 +1,38 @@
 @import "tailwindcss";
+@keyframes login-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes login-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-22px) scale(1.06);
+  }
+}
+
+.login-enter {
+  animation: login-enter 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.login-float {
+  animation: login-float 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-enter,
+  .login-float {
+    animation: none;
+  }
+}
