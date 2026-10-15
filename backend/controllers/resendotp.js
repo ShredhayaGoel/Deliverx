@@ -1,4 +1,4 @@
-const randomInt = require('crypto');
+const { randomInt } = require("crypto");
 
 const pool = require("../db");
 const transporter = require("../mailer");
@@ -22,7 +22,7 @@ const resendotp = async (req, res) => {
                 message: "User not found"
             });
         }
-        const otp = randomInt(100000, 1000000).toString();
+        const otp = randomInt(100000, 1000000);
 
         const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
