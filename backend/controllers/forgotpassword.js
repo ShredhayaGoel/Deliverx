@@ -24,6 +24,14 @@ const forgotpassword = async (req, res) => {
 
         const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
+        // delete otp if again request for same email
+        await pool.query(
+            "DELETE FROM otp_verification WHERE email = $1",
+            [email]
+        );
+
+
+
         // DATABASE M SAVE OTP FOR VERIFICAION 
 
         await pool.query(`
