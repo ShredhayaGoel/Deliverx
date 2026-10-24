@@ -9,18 +9,19 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 const Login = () => {
-  const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
-
   const [Password, setPassword] = useState("");
-
-  const [Error, setError] = useState("err1233");
+  const [Error, setError] = useState("");
 
   const navigate = useNavigate();
 
+  // Login handler
   const handlesubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
       const response = await axios.post("http://localhost:3000/users/login", {
         email: Email,
@@ -28,43 +29,58 @@ const Login = () => {
       });
 
       console.log(response.data);
-      navigate("/dashboard");
 
-      setName("");
       setEmail("");
       setPassword("");
-      setError("");
+      navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      setError("invalid credentuals");
-
       if (error.response) {
-        setError(error.response.data.message);
-        console.log(error.response.data.message);
+        setError(
+          error.response.data.message || "Login failed. Please try again.",
+        );
       } else {
-        setError("An error occurred. Please try again later.");
-        alert(Error);
-        console.log(Error);
+        setError("Server error. Please try again.");
       }
+
+      console.log(error.response?.data || error.message);
     }
   };
 
+  // Send OTP handler
   const handleResendOTP = async () => {
+    setError("");
+
+    if (!Email.trim()) {
+      setError("Please enter your email address.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:3000/users/resendotp",
-        { email: Email },
+        {
+          email: Email.trim(),
+        },
       );
 
       console.log(response.data);
-      alert("OTP resent successfully. Please check your email.");
+
       navigate("/verify-otp", {
         state: {
-          email: Email,
+          email: Email.trim(),
           purpose: "login",
         },
       });
     } catch (error) {
+      if (error.response) {
+        setError(
+          error.response.data.message ||
+            "Unable to send OTP. Please try again.",
+        );
+      } else {
+        setError("Server error. Please try again.");
+      }
+
       console.log(error.response?.data || error.message);
     }
   };
@@ -124,7 +140,10 @@ const Login = () => {
                 placeholder="you@example.com"
                 type="email"
                 value={Email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError("");
+                }}
                 required
               />
             </div>
@@ -151,14 +170,17 @@ const Login = () => {
                 placeholder="Enter your password"
                 type="password"
                 value={Password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError("");
+                }}
                 required
               />
             </div>
           </div>
 
           {/* Forgot Password + Send OTP */}
-          <div className="mb-6 flex items-center justify-between gap-3">
+          <div className="mb-4 flex items-center justify-between gap-3">
             <button
               type="button"
               onClick={() => navigate("/forgot-password")}
@@ -179,6 +201,13 @@ const Login = () => {
               Send OTP
             </button>
           </div>
+
+          {/* Error message */}
+          {Error && (
+            <p className="mb-4 text-xs font-medium text-red-400" role="alert">
+              {Error}
+            </p>
+          )}
 
           {/* Login */}
           <button
