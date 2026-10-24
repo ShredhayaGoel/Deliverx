@@ -34,7 +34,7 @@ const OtpVerification = () => {
         if (purpose === "login") {
           navigate("/dashboard");
         } else if (purpose === "forgotpassword") {
-          navigate("/resetpassword", {
+          navigate("/updated-password", {
             state: { email: email },
           });
         }
