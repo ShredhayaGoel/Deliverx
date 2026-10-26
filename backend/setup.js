@@ -41,6 +41,14 @@ async function setup() {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             expires_at TIMESTAMP NOT NULL)`);
 
+        await pool.query(`CREATE TABLE IF NOT EXISTS otp_resend_limits (
+    email VARCHAR(255) PRIMARY KEY,
+    window_started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    request_count INTEGER NOT NULL DEFAULT 0,
+    last_requested_at TIMESTAMPTZ
+);`)
+
+
     }
 
 
